@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "594c9cdb-209d-45e1-90de-7723daf84cda",
+		"name": "IHRM人力资源管理-登录",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// 1. 从login.json 提取mobile 、password",
+							"var mobile = data.mobile;",
+							"var password = data.password;",
+							"// 2. 将mobile、password设置为环境变量",
+							"pm.environment.set(\"mobile\",mobile);",
+							"pm.environment.set(\"password\",password);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1. 断言 状态码",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"mobile\":\"{{mobile}}\",\"password\":\"{{password}}\"}"
+				},
+				"url": {
+					"raw": "{{host}}/api/sys/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"sys",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
